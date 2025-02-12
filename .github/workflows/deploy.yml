@@ -1,0 +1,31 @@
+name: Deploy FastAPI to Production
+
+on:
+  push:
+    branches:
+      - main  # Deploy only when code is pushed to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to Production Server
+        run: |
+          ssh -i ~/.ssh/deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+            cd /home/ubuntu/fastapi-book-project-hng-stage2
+            source venv/bin/activate
+            git pull origin main
+            pip install -r requirements.txt
+            sudo systemctl restart fastapi
+          EOF
