@@ -141,6 +141,10 @@ The API includes proper error handling for:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+Hire A Backend NodeJS Developers https://hng.tech/hire/nodejs-developers
+
+Hire A DevOps Engineer https://hng.tech/hire/devops-engineers
+
 ## Support
 
 For support, please open an issue in the GitHub repository.
