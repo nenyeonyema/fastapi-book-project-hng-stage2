@@ -23,7 +23,7 @@ jobs:
       - name: Deploy to Production Server
         run: |
           ssh -i ~/.ssh/deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-            cd /home/${{ secrets.SERVER_IP }}/fastapi-book-project-hng-stage2
+            cd /home/${{ secrets.SERVER_USER }}/fastapi-book-project-hng-stage2
             source venv/bin/activate
             git pull origin main
             pip install -r requirements.txt
